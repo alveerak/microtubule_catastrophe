@@ -1,20 +1,14 @@
 - dataset:
   storage: local
-  name: Sampling statistics from some fancy experiment
+  name: Tidy data of time to catastrophe from Gardner, Zanic et al.
   filetype: ".csv"
-  link: dataset1.csv
-  filesize: "24 MB"
+  link: gardner_time_to_catastrophe_dic_tidy.csv
+  filesize: "5 KB"
 
 - dataset:
   storage: local
-  name: Table of measurements from an old-school study for comparison
+  name: Table of measurements from Gardner, Zanic et al. of labeled tubulin catastrophe times for varying concentrations of free tubulin
   filetype: ".csv"
-  link: dataset2.csv
+  link: gardner_mt_catastrophe_only_tubulin.csv
+  filesize: "11 KB"
 
-- dataset:
-  storage: remote 
-  link: "https://data.caltech.edu"
-  DOI:  "10.1.1./journal.0000"
-  name: "Anonymized data from web scraping"
-  filetype: .zip 
-  filesize: 2 gb

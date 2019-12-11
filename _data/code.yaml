@@ -1,11 +1,41 @@
 - script:
-  name: script1.py
+  name: ECDF.py
   desc: >
-    Super fancy script which calcualate some complicated stuff with
-    well-documented code.
+    Generates ECDF plots using holoview.
 - script:
-  name: script2.py
+  name: CI.py
+  desc: >
+    Generates confidence intervals with hypothesis testing.
+- script:
+  name: compare.py
   desc: >
     Yet another script that does something-or-other.
-
+- script:
+  name: mle.py
+  desc: >
+    Maximum Likelihood Estimates for the gamma distribution and the 2-step Poisson Process model.
+- script:
+  name: sim.py
+  desc: >
+    Simulates the Poisson Process Model.
+- script:
+  name: Plot_ECDFs.ipynb
+  desc: >
+    Jupyter notebook for generation of ECDFs of labeled vs. unlabeled tubulin catastrophe times.
+- script:
+  name: CI_labeled_vs_unlabeled.ipynb
+  desc: >
+    Jupyter notebook for generation of confidence intervals of labeled vs. unlabeled tubulin with graphs.
+- script:
+  name: Simulate_Poisson.ipynb
+  desc: >
+    Jupyter notebook for simulation of the Poisson Process Model, also shows graphs of the simulations as well as analytical derivation and graph of the CDF.
+- script:
+  name: CI_2models.ipynb
+  desc: >
+    Jupyter notebook for generation of confidence intervals for gamma distribution model and for 2-step Poisson process model.
+- script:
+  name: Model_Comparison.ipynb
+  desc: >
+    Jupyter notebook for comparing the gamma distribution model with the 2-step Poisson pocess model using the akaike information criterion.
 

@@ -13,15 +13,89 @@ title: >
   Analysis
 authors: >
   
-Generating ECDFs: >
-  We replotted the ECDFs of microtubulin fluorescence using the data provided by Gardner and Zanic et al using holoviews.
-
-Simulating Microtubule Catastrophe:  >
-  Gardner, Zanic et al. hypothesized microtubule catastrophe to be 
+Generating ECDFs: |
+  Gardner, Zanic, et al. studied microtubule catastrophe dynamics, the switching of a microtubule from a growing to a shrinking state. In particular, they were interested in the time between the start of growth of a microtubule and the catastrophe event. They monitored microtubules by using fluorescently labeled tubulin. As a control to make sure that fluorescent labels and exposure to laser light did not affect the microtubule dynamics, they performed a similar experiment using differential interference contrast (DIC) microscopy. They measured the time until catastrophe with labeled and unlabeled tubulin.
   
-Confidence Intervals: >
-  Justin Bois, Patrick Almhjell, Cece Andrews, Suzy Beeler, John Ciemniecki, Muir Morrison, Shyam Saladi
-  
-Maximum Likelihood Estimations: >
+  We replotted the ECDFs of microtubulin fluorescence using the data provided by Gardner, Zanic et al using holoviews to regenerate figure 2a. of their paper. The plot suggests that adding the fluorescent label to the microtubule does not alter the time to catastrophe. Both ECDF plots overlap significantly, depicting an initial linear-like region that becomes more nonlinear, which represents a high proportion of short times to catastrophe with a minority of longer times. The unlabeled data appears noisier than the labeled data, with the labaled data having an inflection point at arouns 200s, suggesting a lack of short catastrophe times. As this trend is preserved in both labeled and unlabeled microtubules, the fluorescent label does not significantly change the onset of catastrophe.
 
-Comparison of Models: >
+Simulating Microtubule Catastrophe:  |
+  Gardner, Zanic et al. hypothesized microtubule catastrophe to be Gamma distributed. A gamma distribution represents the amount of time necessary for a number of arrivals of a Poisson process to occur. In the Gardner, Zanic, et al. paper, they determine that microtubule catastrophe is a multistep process from the nonlinearity of the cumulative distribution. Therefore, if microtubule catastrophe can be characterized as steps with equivalent rate of arrival, it is equivalent to the story of the gamma distribution.
+  
+  We propose another model that describes microtubule catastrophe as two-step Poisson processes, meaning that two chemical events must occur in succession to trigger catastrophe with the second event only occuring after the first event has occurred. In order to test this model, we simulated 150 events distributed according to the model under many 𝛽2/𝛽1 values, where 𝛽1 is the rate of arrival of the first process, and 𝛽2 is the rate of arrival of the second process. We then plotted ECDFs of our simulated results. Now, we can analytically derive the CDF with convolution:
+
+  $$ \begin{align*}
+  f_C(t) &= \int_{-\infty}^{\infty} f_A(t_1) \times f_B(t - t_1) dt_1 \\
+  &= \int_{0}^{t} \beta_1 e^{-\beta_1t_1} \times \beta_2 e^{-\beta_2(t - t_1)} dt_1 \\
+  &= \beta_1\beta_2e^{-\beta_2t} \int_{0}^{t} e^{(\beta_2-\beta_1)t_1} dt_1 \\
+  &= \beta_1\beta_2e^{-\beta_2t} \left. \frac{e^{(\beta_2-\beta_1)t_1}}{\beta_2 - \beta_1} \right\vert_{t_1 = 0}^{t_1 = t} \\
+  &= \frac{\beta_1\beta_2e^{-\beta_2t}}{\beta_2 - \beta_1} (e^{\beta_2t}e^{-\beta_2t}-1)\\
+  &= \frac{\beta_1\beta_2}{\beta_2 - \beta_1} (e^{-\beta_2t}-e^{-\beta_2t})\\
+  \end{align*} $$
+
+  We can plot the random number generation simulation with the analytical derivation to verify if our simulation matches theoretical values. Our plot below shows a single beta2/beta1 ratio (beta1 = 100, beta2 = 200) simulation from random number generation with the analytically derived CDF. Both the randomly generated and theoretically derived ECDFs match.
+  
+Confidence Intervals for Microtubule Catastrophe: |
+  To verify that fluorescently labeled microtubulin undergo catastrophe at the same rates as unlabeled microtubulin, we performed 95% confidence intervals for the mean-time to catastrophe for both conditions. Again, we want to verify that fluorescently labeling the tubulin does not interfere with and impact microtubule catastrophe dynamics.
+  
+  From out plot, using bokeh_catplot.ECDF(), the labeled and unlabeled molecules appear to be identically distributed since there is a large overlap between their individual 95% confidence intervals. Both of the ECDF curves fall within this overlap a significant proportion of the time across times to catastrophe, with signifies that they distribute similarly.
+  
+  We can then calculate the confidence intervals for the mean-time to catastrophe using bootstrapping for both conditions:
+  
+    Mean time to catastrophe for labeled tubulin 95% conf int (s):   [401.94, 482.37]
+    
+    Mean time to catastrophe for unlabeled tubulin 95% conf int (s): [353.68, 476.84]
+    
+    The unlabeled tubulin appears to have a larger range for its 95% confidence interval for its mean compared to the labeled tubulin. However, both overlap significantly, representing the fact that the means for the time to catastrophe for both labeled and unlabeled tubulin are similar.
+    
+    We can then perform a hypothesis test to attempt to verify these results. Two test statistics, the magnitude of the difference of mean and variances of the data, were used to test whether the distribution of catastrophe times with respect to labeled or unlabeled tubulin were equal. Mean and variance were chosen since knowing that the data is assumed to distribute normally, those are the two parameters that are required to describe the distribution completely. Thus, when attempting to determine if the two variables distribute similarly, it is important to consider both. The magnitude of the difference was chosen to account for the difference either being positive or negative, whereas we are interested in solely the absolute difference between the two means or variances to show that they follow similar distributions.
+
+    In this setup, the p-value would represent the percentage of occurrences where both the difference in means and variances for the permutation sample was larger than the experimental data's. If the two experimental samples had different means and variances, the permutation samples would have these properties fall in between the two, thus creating a smaller magnitude of difference. Thus, a large p-value would represent a percentage of occurrences where the permutation samples did not have a larger magnitude of difference, thus representing a higher likelihood that the mean and variances are similar. This would signify similar distributions between the variables.
+
+    In our test, the p-value was calculated to be 0.825 for the difference of variances and 0.448 for the difference of means, with a combined p-value of 0.370. This shows that the mean and variance are both similar, which represents that both the labeled and unlabeled tubulin catastrophe times distribute similarly.
+  
+Maximum Likelihood Estimations: |
+  From the data collected by Gardner, Zanic et al., we were able to compute maximum likelihood estimates with confidence intervals via bootstrapping under the Gamma distribution model and under the two-step Poisson processes model. Because we showed that there is little difference between labeled and unlabeled tubulin, we only perform MLEs and confidence intervals for labeled tubulin.
+  
+  For the Gamma distribution, our MLEs for the parameters with their 95% confidence intervals from bootstrapping were:
+  
+  α:  2.407549571423717
+  
+  β:  0.005462877597193044
+  
+  α MLE confidence interval: 2.0880669154615394,2.876763289547328
+  
+  β MLE Confidence interval: 0.0045927440489315595,0.0067206630121
+  
+  We showed earlier that the PDF of microtubule catastrophe times for the 2-step Poisson process model is:
+  
+  $$ \begin{align*}
+  &f(t;\beta_1,\beta_2) = \frac{\beta_1\beta_2}{\beta_2 - \beta_1} (e^{-\beta_2t}-e^{-\beta_2t})\\
+  \end{align*} $$
+  
+  To perform MLEs using log likelihood, we performed log sum exponential approximation when $$\beta_2$$ differed greatly from $$\beta_1$$ and performed log likelihood on a gamma distribution when $$\beta_2$$ was very close to $$\beta_1$$.
+  
+  For the 2-step Poisson process distribution, our MLEs for the parameters with their 95% confidence intervals from bootstrapping were:
+  
+  β1:  0.004538122309961597
+  
+  β2:  0.005165922641456284
+  
+  β1 MLE confidence interval: 0.004170758695116239,0.004970890284990142
+  
+  β2 MLE Confidence interval: 0.004561222742912192,0.005698968727221495
+  
+  
+Comparison of Models: |
+  In order to compare the two different models, we used data Gardner, Zanicet al. collected from monitoring fluorescently labeled microtubule catastrophe with varying levels of soluble tubulin. First, we performed some exploratory data analysis to better understand the data. From our ECDF plots based on concentration, it appears that with increasing concentration, the time to catastrophe also increases slightly.
+  
+  We then compared the gamma distribution model with the 2-step Poisson process model for the 12uM tubulin dataset using the Akaike information criterion.
+  
+  For our the Gamma distribution, our AIC was 439572.1022752261. For the 2-step Poisson process, our AIC was 521478.7723898492. The smaller AIC for the gamma distribution suggests that the Gamma distribution better fits the 12uM data.
+  
+  As the Gamma distribution fits the data better, we performed MLEs with confidence intervals on the parameters for all soluble tubulin concentrations. The results are displayed below.
+  
+  We do indeed see that an increasing tubulin concentration results in slightly increased catastrophe time.
+  
+  
+  
+

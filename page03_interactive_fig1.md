@@ -17,20 +17,27 @@ interactive: interactive_1.html
 {{entry[1]}}
 {% endif %}
 {% endif %}
+
+{% if entry[0] == 'Generating ECDFs' %}
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/ECDF_plots.png" width = "500" ></center>
+{% endif %}
+
+{% if entry[0] == 'Simulating Microtubule Catastrophe' %}
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/simulations.png" width = "500" ></center>
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/compare_theory_vs_sim.png" width = "500" ></center>
+{% endif %}
+
+{% if entry[0] == 'Confidence Intervals for Microtubule Catastrophe' %}
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/ECDF_w_ConfInt.png" width = "500" ></center>
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/upper_lower_bounds.png" width = "500" ></center>
+{% endif %}
+
+{% if entry[0] == 'Comparison of Models' %}
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/jitter.png" width = "500" ></center>
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/ECDFs_conc.png" width = "500" ></center>
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/MLEs.png" width = "260" ></center>
+<center> <img src="{{site.url}}/{{site.baseurl}}/assets/img/conf_int.png" width = "500" ></center>
+{% endif %}
+
 {% endfor %}
-
-
-## Figure Description
-Below is an example of an embedded interactive figure. It generates
-two-dimensional random walks of 10,000 steps each time the button is clicked.
-Moving the slider shows you in finer detail the position and history of the past
-500 steps.
-
-<!-- The below line includes the interactive figure. Do not change! -->
-<center>
-
-{% include_relative interactives/{{page.interactive}} %}
-
-</center>
-
 
