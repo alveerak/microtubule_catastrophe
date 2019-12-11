@@ -9,23 +9,24 @@
 # of the `page01_people.md` file.
 # ##############################################################################
 - author:
-  name: Dr. Osophila
-  link: "https://en.wikipedia.org/wiki/Drosophila"
+  name: Suhash Aravindan
   title: Postdoctoral Scholar
-  img: dr_osophila.jpg
-  institute: Bicoid Institute of Development
+  img: hedgehog.jpg
+  institute: California Institute of Technology
   other_info:
-     Email Address: "flyguy@university.edu"
+     Email Address: "saravind@caltech.edu"
 - author:
-  name: Dr. Melanie O'Gaster
-  link: "https://en.wikipedia.org/wiki/Drosophila_melanogaster"
-  title: Postdoctoral Scholar
-  img: melanogaster.jpg
-  institute: French Flag Research Institute
+  name: Alveera Khan
+  title: Undergraduate
+  img: puppy.jpg
+  institute: California Institute of Technology
   other_info:
-    Current Location: Apple Juice Plates, Inc
+    Email Address: "akkhan@caltech.edu"
 
 - author:
-  name: Sally Monella
-  title: Research Technician
-  institute: French Flag Research Institute
+  name: Sarah Hou
+  title: Undergraduate
+  img: pig.jpg
+  institute: California Institute of Technology
+  other_info:
+     Email Address: "shou@caltech.edu"

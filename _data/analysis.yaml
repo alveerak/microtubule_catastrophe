@@ -1,0 +1,27 @@
+# ##############################################################################
+# ABOUT
+# ------------------------------------------------------------------------------
+# This data file contains all information that will be displayed on the home
+# page of your website. The fields `title` and `authors` are necessary. These
+# keys cannot be changed or they will not be displayed on the website. 
+#
+# The remainder of the fileds can be changed to fit your needs. The field name
+# (e.g. abstract, summary, etc) Will appear with as H2 headings on the website.
+# The content below will appear 
+
+title: >
+  Analysis
+authors: >
+  
+Generating ECDFs: >
+  We replotted the ECDFs of microtubulin fluorescence using the data provided by Gardner and Zanic et al using holoviews.
+
+Simulating Microtubule Catastrophe:  >
+  Gardner, Zanic et al. hypothesized microtubule catastrophe to be 
+  
+Confidence Intervals: >
+  Justin Bois, Patrick Almhjell, Cece Andrews, Suzy Beeler, John Ciemniecki, Muir Morrison, Shyam Saladi
+  
+Maximum Likelihood Estimations: >
+
+Comparison of Models: >

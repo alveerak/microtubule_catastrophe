@@ -1,11 +1,24 @@
 ---
 layout: page
-title: Interactive Figure 1
+title: Analysis
 permalink: interactive_a
 sidebar: true
 interactive: interactive_1.html
 ---
 ---
+
+
+
+{% for entry in site.data.analysis %}
+
+{% if entry[0] != 'title' %}
+{% if entry[0] != 'authors' %}
+## {{entry[0]}}
+{{entry[1]}}
+{% endif %}
+{% endif %}
+{% endfor %}
+
 
 ## Figure Description
 Below is an example of an embedded interactive figure. It generates
